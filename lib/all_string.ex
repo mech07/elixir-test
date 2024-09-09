@@ -3,7 +3,6 @@ defmodule AllStrings do
   Documentation for `AllStrings`.
   """
 
-  @spec trim_string(binary()) :: binary()
   @doc """
   Returns the given value with leading and trailing spaces removed.
 
@@ -19,13 +18,64 @@ defmodule AllStrings do
      "Hi Amy"
 
   """
-  def trim_string(value) do
+  def first_letter(value) do
     String.trim(value)
-  end
-
-
-  def first_letter(name) do
-    String.trim(name)
     |>String.first()
   end
+
+  def initial(value) do
+    "#{first_letter(value) |> String.capitalize()}. "
+  end
+
+  def initials(full_name) do
+    list = String.split(full_name)
+    Enum.map(list,fn name->
+        initial(name)
+    end)
+  |>List.to_string()
+  |>String.trim()
+  end
+
+  def build_saucer() do
+    """
+
+                        %%%%%%%%%%%%%%%%%%%%
+                   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+          ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+      ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+    ************************************************************
+        ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+           ,,,&&&,,,,,,&&&,,,,,,&&&,,,,,,&&&,,,,,,&&&,,,
+                ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+    """
+  end
+
+  def display_saucer()do
+    IO.puts(build_saucer())
+  end
+
+  defp customized_spacecraft(full_name) do
+    new_string = "********************#{initials(full_name)}'s Spacecraft***********************************"
+    "#{build_saucer()}"
+    |> String.replace("************************************************************",new_string)
+  end
+
+  @doc """
+    Return the spacecraft with initials spacecraft
+
+    Returns string
+
+    ## Parameters
+    -fullname: string
+
+    ## Example
+      iex> AllStrings.display_customized_spacecraft("bloke erling ")
+         :ok
+    """
+  def display_customized_spacecraft(fullname) do
+    IO.puts(customized_spacecraft(fullname))
+  end
+
 end
