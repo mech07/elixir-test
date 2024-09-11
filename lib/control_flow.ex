@@ -15,6 +15,14 @@ defmodule ControlFlowStructures do
     end
   end
 
+  #sample from the book
+  def call_status(call) do
+    cond do
+      call.ended_at != nil -> :ended
+      call.started_at != nil -> :started
+      true -> :pending
+    end
+  end
   def error_code_check(value) do
     case value do
       200 -> :ok
@@ -22,6 +30,13 @@ defmodule ControlFlowStructures do
       204 -> :no_content
       n when is_integer(n) and n > 299 -> :error #guard
       _ -> :unknown
+    end
+  end
+
+  def max(a,b) do
+    case a >= b do
+    true -> a
+    false -> b
     end
   end
 
