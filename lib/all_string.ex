@@ -78,4 +78,8 @@ defmodule AllStrings do
     IO.puts(customized_spacecraft(fullname))
   end
 
+  def s do
+    ~s(This is also a string)
+    ~S(Not interpolated #{3 + 0.14})
+  end
 end
