@@ -39,5 +39,72 @@ defmodule Recursion do
       partial_occurrence(tail, value)
     end
   end
+end
 
+#Printing the first n natural numbers
+defmodule NaturalNums do
+  def print(n) when is_integer(n) and n > 0 do
+    print_helper(n)
+  end
+
+  def print(_n) do
+    {:error, :not_integer}
+  end
+
+  defp print_helper(1) do
+    IO.puts(1)
+  end
+
+  defp print_helper(n) when n > 1 do
+    print_helper(n - 1)
+    IO.puts(n)
+  end
+end
+
+
+#defmodule NaturalNums do
+ # def print(1), do: IO.puts(1)
+  #def print(n) do
+    #print(n - 1)
+   # IO.puts(n)
+  #end
+#end
+
+#Calculating the sum of a list
+defmodule ListSum do
+  def sum([]), do: 0
+  def sum([head | tail]) do
+    IO.puts(head)
+   head + sum(tail)
+  end
+end
+
+#Tail-recursive sum of the first n natural numbers
+defmodule ListSumV2 do
+  def sum(list) do
+    do_sum(0, list)
+  end
+  defp do_sum(current_sum, []) do
+    current_sum
+  end
+  defp do_sum(current_sum, [head | tail]) do
+    IO.puts(current_sum)
+    new_sum = head + current_sum
+    do_sum(new_sum, tail)
+  end
+end
+
+defmodule EnumRecursion do
+  def test(list) do
+    Enum.reduce(list,0,fn element, sum -> sum + element end)
+  end
+  def test_compact(list) do
+    Enum.reduce(list, 0, &+/2)
+  end
+  def test2(list) do
+    Enum.reduce(list,0,fn element,
+    sum when is_number(element) -> sum + element
+    _, sum -> sum
+    end)
+  end
 end
